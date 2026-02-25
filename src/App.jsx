@@ -15,7 +15,7 @@ function App() {
 
   const addTodo =()=>{
     if(input=="") return // refuse added empty tasks
-    setTodos([...todos, { id: Date.now(), text: input, completed: false}])
+    setTodos([...todos, { id: Date.now(), text: input, completed: false }])
     setInput("") // clear input
   }
 
@@ -30,7 +30,16 @@ function App() {
     }))
   }
 
+  const [options, setOptions] = useState([])
+
+  const addOption = () => {
+      if(input=="") return
+      setOptions([...options, {id: Date.now(), text: input}])
+      setInput("")
+  }
+
   return (
+    // Add drop down for type
     <>
       <div className="search-group">
         <input
@@ -39,8 +48,19 @@ function App() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
+        <select id="select-group">
+          <option>option 1</option>
+        </select>
         <button onClick={addTodo}>Add</button>
       </div>
+      <input
+        type="text"
+        placeholder="Add a category"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <button onClick={addOption}>Add category</button>
+
       <div className="todo-list">
         {todos.map(todo => (
           <div key={todo.id} className="todo-item">
